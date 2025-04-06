@@ -1,0 +1,98 @@
+doctype html
+html.
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="sprite.js"></script>
+        <script>
+            function init() {
+                let size;
+                if(isSmartPhone()) {
+                    const bh = document.documentElement.clientHeight;
+                    size = bh * 0.9;
+                } else {
+                    size = 640;
+                }
+                var game = new Game(size, size, document.body, document.getElementById("canvas"));
+                game.backgroundColor = "#FFFFFF";
+
+                var player = new Sprite(20, 20);
+                player.imageType = "draw";
+                player.draw = function(ctx) {
+                    ctx.fillStyle = "#FF0000";
+                    ctx.fillRect(-10, -10, 20, 20);
+                }
+                game.onmousemove = function(e) {
+                    player.x = e.x;
+                    player.y = e.y;
+                }
+                //game.canvas.addEventListener("mousedown", function(){console.log("tapa")});
+                game.test = function() {};
+                game.test();
+                game.appendSprite(player);
+
+                var pCollider = new RectCollider(20, 20);
+                pCollider.x = -10;
+                pCollider.y = -10;
+                pCollider.parent = player;
+                player.oncollideenter = function(e) {
+                    game.stop();
+                }
+                game.appendCollider(pCollider);
+
+                var enemySpan = 0;
+                game.update = function() {
+                    enemySpan += 1;
+                    if (enemySpan > 10) {
+                        enemySpan = 0;
+
+                        var enemy = new Sprite(32, 32);
+                        enemy.imageType = "draw";
+                        enemy.draw = function(ctx) {
+                            ctx.fillStyle = "#00FFFF";
+                            ctx.fillRect(-16, -16, 32, 32);
+                        }
+                        enemy.x = 350;
+                        enemy.y = Math.random() * 320;
+                        enemy.speed = Math.random() * 4 + 4;
+                        //enemy.scaleX = 0.5;
+
+                        var eCollider = new RectCollider(32, 32);
+                        eCollider.x = -16;
+                        eCollider.y = -16;
+                        eCollider.parent = enemy;
+                        eCollider.group = "enemy";
+
+                        enemy.update = function() {
+                            enemy.scaleY += 0.02;
+                            enemy.x -= enemy.speed;
+                            if(enemy.x < -30) {
+                                game.deleteSprite(enemy);
+                                game.deleteCollider(eCollider);
+                                scoreNum += 1;
+                            }
+                        }
+                        game.appendSprite(enemy);
+                        game.appendCollider(eCollider);
+                    }
+                };
+
+                var scoreNum = 0;
+                var score = new Sprite(1, 1);
+                score.imageType = "draw";
+                score.layer = -10;
+                score.draw = function(ctx) {
+                    ctx.fillStyle = "#000000";
+                    ctx.font = "24px monospace";
+                    ctx.fillText("score:" + scoreNum, 0, 24, 320);
+                }
+                game.appendSprite(score);
+
+                game.coordinateSize = size / 320;
+
+                game.start(40);
+            }
+        </script>
+    </head>
+    <body style="overflow:hidden;"  onload = init()>
+        <canvas id="canvas"></canvas>
+    </body>

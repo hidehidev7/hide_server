@@ -1,16 +1,18 @@
-doctype html
-html.
-    <head>
-        <meta charset="UTF-8">
-        <script type="text/javascript" src="/scripts/sprite.js"></script>
-        <script>
+extends layout
+
+block content
+    div#game-container(style={overflow:"hidden"})
+        script(type="text/javascript" src="/scripts/sprite.js")
+        script.
+            window.addEventListener("load", init);
             function init() {
                 let size;
                 if(isSmartPhone()) {
                     const bh = document.documentElement.clientHeight;
                     size = bh * 0.9;
                 } else {
-                    size = 640;
+                    const bh = document.documentElement.clientHeight;
+                    size = bh * 0.9;
                 }
                 var game = new Game(size, size, document.body, document.getElementById("canvas"));
                 game.backgroundColor = "#FFFFFF";
@@ -91,8 +93,4 @@ html.
 
                 game.start(40);
             }
-        </script>
-    </head>
-    <body style="overflow:hidden;"  onload = init()>
-        <canvas id="canvas"></canvas>
-    </body>
+        canvas#canvas

@@ -34,7 +34,7 @@ function Sprite(width, height) {
 
     //メソッド
     this.translate = function (x, y) {
-        const length = Math.sqrt((x * x) + (y * y));
+        var length = Math.sqrt((x * x) + (y * y));
         let angle = 0;
         if (x > 0) {
             angle = Math.asin(y / length);
@@ -68,7 +68,7 @@ function Game(width, height, parent, canvas) {
     this.onmousemove = function () { }
     this.backgroundColor = "#FFFFFF";
 
-    const ctx = this.canvas.getContext("2d");
+    var ctx = this.canvas.getContext("2d");
     let childs = new Array(0);
     let colliders = new Array(0);
     let interval;
@@ -82,9 +82,9 @@ function Game(width, height, parent, canvas) {
 
     //クリックイベント
     function mouseUp(e) {
-        const clientRect = this.getBoundingClientRect();
-        const posX = clientRect.left + window.pageXOffset;
-        const posY = clientRect.top + window.pageYOffset;
+        var clientRect = this.getBoundingClientRect();
+        var posX = clientRect.left + window.pageXOffset;
+        var posY = clientRect.top + window.pageYOffset;
         touchPos = {
             x: (e.pageX - posX) / coordinateSize,
             y: (e.pageY - posY) / coordinateSize
@@ -101,9 +101,9 @@ function Game(width, height, parent, canvas) {
         }
     }
     function touchStart(e) {
-        const clientRect = this.getBoundingClientRect();
-        const posX = clientRect.left + window.pageXOffset;
-        const posY = clientRect.top + window.pageYOffset;
+        var clientRect = this.getBoundingClientRect();
+        var posX = clientRect.left + window.pageXOffset;
+        var posY = clientRect.top + window.pageYOffset;
         touchPos = {
             x: (e.changedTouches[0].pageX - posX) / coordinateSize,
             y: (e.changedTouches[0].pageY - posY) / coordinateSize
@@ -120,9 +120,9 @@ function Game(width, height, parent, canvas) {
         }
     }
     function mouseDown(e) {
-        const clientRect = this.getBoundingClientRect();
-        const posX = clientRect.left + window.pageXOffset;
-        const posY = clientRect.top + window.pageYOffset;
+        var clientRect = this.getBoundingClientRect();
+        var posX = clientRect.left + window.pageXOffset;
+        var posY = clientRect.top + window.pageYOffset;
         touchPos = {
             x: (e.pageX - posX) / coordinateSize,
             y: (e.pageY - posY) / coordinateSize
@@ -139,9 +139,9 @@ function Game(width, height, parent, canvas) {
         }
     }
     function touchEnd(e) {
-        const clientRect = this.getBoundingClientRect();
-        const posX = clientRect.left + window.pageXOffset;
-        const posY = clientRect.top + window.pageYOffset;
+        var clientRect = this.getBoundingClientRect();
+        var posX = clientRect.left + window.pageXOffset;
+        var posY = clientRect.top + window.pageYOffset;
         touchPos = {
             x: (e.changedTouches[0].pageX - posX) / coordinateSize,
             y: (e.changedTouches[0].pageY - posY) / coordinateSize
@@ -158,9 +158,9 @@ function Game(width, height, parent, canvas) {
         }
     }
     function mouseMove(e) {
-        const clientRect = this.getBoundingClientRect();
-        const posX = clientRect.left + window.pageXOffset;
-        const posY = clientRect.top + window.pageYOffset;
+        var clientRect = this.getBoundingClientRect();
+        var posX = clientRect.left + window.pageXOffset;
+        var posY = clientRect.top + window.pageYOffset;
         touchPos = {
             x: (e.pageX - posX) / coordinateSize,
             y: (e.pageY - posY) / coordinateSize
@@ -178,9 +178,9 @@ function Game(width, height, parent, canvas) {
     }
     function touchMove(e) {
         e.preventDefault();
-        const clientRect = this.getBoundingClientRect();
-        const posX = clientRect.left + window.pageXOffset;
-        const posY = clientRect.top + window.pageYOffset;
+        var clientRect = this.getBoundingClientRect();
+        var posX = clientRect.left + window.pageXOffset;
+        var posY = clientRect.top + window.pageYOffset;
         touchPos = {
             x: (e.changedTouches[0].pageX - posX) / coordinateSize,
             y: (e.changedTouches[0].pageY - posY) / coordinateSize
@@ -205,10 +205,10 @@ function Game(width, height, parent, canvas) {
 
     //コライダ系
     function mouseIsOnCollider(e, c) {
-        const x = c.x * c.parent.scaleX + c.parent.x;
-        const y = c.y * c.parent.scaleY + c.parent.y;
-        const w = c.width * c.parent.scaleX;
-        const h = c.height * c.parent.scaleY;
+        var x = c.x * c.parent.scaleX + c.parent.x;
+        var y = c.y * c.parent.scaleY + c.parent.y;
+        var w = c.width * c.parent.scaleX;
+        var h = c.height * c.parent.scaleY;
         switch (c.system.type) {
             case "r":
                 if (x <= e.x && e.x <= x + w
@@ -221,14 +221,14 @@ function Game(width, height, parent, canvas) {
     }
 
     function checkCollide(c1, c2) {
-        const x1 = c1.parent.x + (c1.x * c1.parent.scaleX);
-        const y1 = c1.parent.y + (c1.y * c1.parent.scaleY);
-        const x2 = c2.parent.x + (c2.x * c2.parent.scaleX);
-        const y2 = c2.parent.y + (c2.y * c2.parent.scaleY);
-        const w1 = c1.width * c1.parent.scaleX;
-        const h1 = c1.height * c1.parent.scaleY;
-        const w2 = c2.width * c2.parent.scaleX;
-        const h2 = c2.height * c2.parent.scaleY;
+        var x1 = c1.parent.x + (c1.x * c1.parent.scaleX);
+        var y1 = c1.parent.y + (c1.y * c1.parent.scaleY);
+        var x2 = c2.parent.x + (c2.x * c2.parent.scaleX);
+        var y2 = c2.parent.y + (c2.y * c2.parent.scaleY);
+        var w1 = c1.width * c1.parent.scaleX;
+        var h1 = c1.height * c1.parent.scaleY;
+        var w2 = c2.width * c2.parent.scaleX;
+        var h2 = c2.height * c2.parent.scaleY;
         switch (c1.system.type + c2.system.type) {
             case "rr":
                 if (((x1 <= x2 && x2 <= x1 + w1) || (x1 <= x2 + w2 && x2 + w2 <= x1 + w1) || (x2 <= x1 && x1 <= x2 + w2))
@@ -251,7 +251,7 @@ function Game(width, height, parent, canvas) {
 
         for (i = 0; i < childs.length; i++) {
 
-            const sprite = childs[i];
+            var sprite = childs[i];
             sprite.update();
         }
 
@@ -301,12 +301,12 @@ function Game(width, height, parent, canvas) {
 
         for (i = 0; i < layerSprites.length; i++) {
 
-            const sprite = layerSprites[i];
+            var sprite = layerSprites[i];
 
             ctx.save();
             ctx.scale(coordinateSize, coordinateSize);
             ctx.translate(sprite.x, sprite.y);
-            const radDir = sprite.dir * Math.PI / 180;
+            var radDir = sprite.dir * Math.PI / 180;
             ctx.rotate(radDir);
             ctx.scale(sprite.scaleX, sprite.scaleY);
             ctx.translate(sprite.pivotX * -1, sprite.pivotY * -1);
@@ -375,7 +375,7 @@ function RectCollider(width, height) {
 
 //便利機能
 function loadImg(src) {
-    const img = document.createElement("img");
+    var img = document.createElement("img");
     img.src = src;
     img.style = "display: none";
     return img;
